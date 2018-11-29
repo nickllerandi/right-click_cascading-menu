@@ -1,28 +1,55 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
 import './App.css';
 
+import Nav from "./nav/Nav";
+import Element from "./element/Element";
+
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+    state = {
+        menuItems: [
+            {
+                title: "one"
+            },
+            {
+                title: "two",
+                subItems: [
+                    "one",
+                    "two",
+                    "three"
+                ]
+            },
+            {
+                title: "three",
+                subItems: [
+                    "one"
+                ]
+            }
+        ],
+        showNav: false
+    };
+
+    toggleShowNav = () => {
+        const shown = this.state.showNav;
+        console.log(shown);
+        this.setState({showNav: !shown})
+    };
+
+
+    render() {
+        return (
+            <div className="App">
+                {this.state.showNav ?
+                    <Nav
+                        menuItems={this.state.menuItems}
+                    /> : null
+                }
+
+                <Element
+                    toggle={this.toggleShowNav}
+                />
+            </div>
+        );
+    }
 }
 
 export default App;
